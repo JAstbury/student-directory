@@ -12,13 +12,24 @@ def input_students
     students = []
     name = gets.chomp
     while !name.empty? do
+        puts "What's cohort(month) is #{name} in?"
+            month = gets.chomp.capitalize
+            month = "November" if month == ""
+            if ("January February March April May June July August September October November December").include?(month) == false 
+                puts "Please enter a correct month"
+                month = gets.chomp
+            end
+            cohort = month
         puts "What's #{name}'s DOB? (DD/MM/YYYY)"
-            date = gets.chomp  
+            date = gets.chomp
+            date = "N/A" if date == ""
         puts "How tall(cm) is #{name}?"
             height = gets.chomp 
+            height = "N/A" if height == ""
         puts "What's #{name}'s hobbies?"
-            hobbies = gets.chomp 
-        students << {name: name, cohort: :november, dob: date, height: height, hobbies: hobbies}
+            hobbies = gets.chomp
+            hobbies = "N/A" if hobbies == ""
+        students << {name: name, cohort: cohort, dob: date, height: height, hobbies: hobbies}
             puts "Now we have #{students.count} students"
         name = gets.chomp
     end
@@ -34,7 +45,7 @@ index = 0
 while index < students.length
     student = students[index]
     if (student[:name][0] == "R") && (student[:name].length < 12)
-    puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)".center(60)
+    puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort).........hobbies = #{student[:hobbies]}".center(60)
     end
     index += 1
 end
