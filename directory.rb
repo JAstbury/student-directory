@@ -20,16 +20,22 @@ def input_students
 end
 
 
-def print_names(students)
-students.each.with_index(1) do |student, index|
-    if student[:name][0] == "R" && student[:name].length < 12
-    puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort)"
-    end
-end
-end
-    
-    
 
+def print_names(students)
+
+index = 0
+
+while index < students.length
+    student = students[index]
+    if (student[:name][0] == "R") && (student[:name].length < 12)
+    puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    end
+    index += 1
+end
+
+end
+    
+    
 
 def print_footer(students)
     puts "Overall, we have #{students.count} great students"
