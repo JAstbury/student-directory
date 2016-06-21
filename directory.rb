@@ -42,6 +42,9 @@ def print_header
 end
 
 def print_names(students)
+if students.empty?
+    puts "No students have been inputted".center(60)
+else
 index = 1
 $months.each do |month|
     students.each do |student|
@@ -52,14 +55,17 @@ $months.each do |month|
     end
 end
 end
+end
 
 
 
 def print_footer(students)
+    if !students.empty?
     if students.count == 1
         puts "Overall, we have #{students.count} great student".center(60)
     else
         puts "Overall, we have #{students.count} great students".center(60)
+    end
     end
 end
 
