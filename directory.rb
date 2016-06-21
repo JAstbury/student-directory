@@ -4,25 +4,25 @@ def input_students
     puts "Please enter the names of the students"
     puts "To finish, just hit return twice"
     students = []
-    name = gets.chomp
+    name = gets.gsub("\n", "")
     while !name.empty? do
         puts "What's cohort(month) is #{name} in?"
-            month = gets.chomp.capitalize
+            month = gets.gsub("\n", "").capitalize
             month = "November" if month == ""
             $months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
             if $months.include?(month) == false 
                 puts "Please enter a correct month"
-                month = gets.chomp
+                month = gets.gsub("\n", "")
             end
             cohort = month
         puts "What's #{name}'s DOB? (DD/MM/YYYY)"
-            date = gets.chomp
+            date = gets.gsub("\n", "")
             date = "N/A" if date == ""
         puts "How tall(cm) is #{name}?"
-            height = gets.chomp 
+            height = gets.gsub("\n", "")
             height = "N/A" if height == ""
         puts "What's #{name}'s hobbies?"
-            hobbies = gets.chomp
+            hobbies = gets.gsub("\n", "")
             hobbies = "N/A" if hobbies == ""
         students << {name: name, cohort: cohort, dob: date, height: height, hobbies: hobbies}
             if students.count > 1
@@ -30,7 +30,7 @@ def input_students
             else
                 puts "Now we have #{students.count} student"
             end
-        name = gets.chomp
+        name = gets.gsub("\n", "")
     end
     students
 end
@@ -46,9 +46,7 @@ index = 1
 $months.each do |month|
     students.each do |student|
         if student[:cohort] == month
-            if (student[:name][0] == "R") && (student[:name].length < 12)
-                puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort).........hobbies = #{student[:hobbies]}".center(60)
-            end
+           puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort).........hobbies = #{student[:hobbies]}".center(60)
             index += 1
         end
     end
@@ -56,7 +54,6 @@ end
 end
 
 
-    
 
 def print_footer(students)
     if students.count == 1
