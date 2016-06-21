@@ -2,8 +2,8 @@
 
 
 def print_header
-    puts "The students of Villains Academy"
-    puts "-------------"
+    puts "The students of Villains Academy".center(60)
+    puts "-------------".center(60)
 end
  
 def input_students
@@ -12,8 +12,14 @@ def input_students
     students = []
     name = gets.chomp
     while !name.empty? do
-        students << {name: name, cohort: :november}
-        puts "Now we have #{students.count} students"
+        puts "What's #{name}'s DOB? (DD/MM/YYYY)"
+            date = gets.chomp  
+        puts "How tall(cm) is #{name}?"
+            height = gets.chomp 
+        puts "What's #{name}'s hobbies?"
+            hobbies = gets.chomp 
+        students << {name: name, cohort: :november, dob: date, height: height, hobbies: hobbies}
+            puts "Now we have #{students.count} students"
         name = gets.chomp
     end
     students
@@ -28,7 +34,7 @@ index = 0
 while index < students.length
     student = students[index]
     if (student[:name][0] == "R") && (student[:name].length < 12)
-    puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)".center(60)
     end
     index += 1
 end
@@ -38,7 +44,7 @@ end
     
 
 def print_footer(students)
-    puts "Overall, we have #{students.count} great students"
+    puts "Overall, we have #{students.count} great students".center(60)
 end
 
 
