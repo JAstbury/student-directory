@@ -1,9 +1,29 @@
-# Getting input about the students
+
+def interactive_menu
+$students = []
+  loop do
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit"
+    selection = gets.chomp
+    case selection
+        when "1"
+            $students = input_students
+        when "2"
+            print_header
+            print_names($students)
+            print_footer($students)
+        when "9"
+            exit
+    else
+        puts "Please enter a valid option."
+    end
+end
+end
 
 def input_students
     puts "Please enter the names of the students"
     puts "To finish, just hit return twice"
-    students = []
     name = gets.gsub("\n", "")
     while !name.empty? do
         puts "What's cohort(month) is #{name} in?"
@@ -24,15 +44,15 @@ def input_students
         puts "What's #{name}'s hobbies?"
             hobbies = gets.gsub("\n", "")
             hobbies = "N/A" if hobbies == ""
-        students << {name: name, cohort: cohort, dob: date, height: height, hobbies: hobbies}
-            if students.count > 1
-                puts "Now we have #{students.count} students"
+        $students << {name: name, cohort: cohort, dob: date, height: height, hobbies: hobbies}
+            if $students.count > 1
+                puts "Now we have #{$students.count} students"
             else
-                puts "Now we have #{students.count} student"
+                puts "Now we have #{$students.count} student"
             end
         name = gets.gsub("\n", "")
     end
-    students
+    $students
 end
 
 
@@ -40,6 +60,7 @@ def print_header
     puts "The students of Villains Academy".center(60)
     puts "-------------".center(60)
 end
+
 
 def print_names(students)
 if students.empty?
@@ -58,7 +79,6 @@ end
 end
 
 
-
 def print_footer(students)
     if !students.empty?
     if students.count == 1
@@ -70,8 +90,5 @@ def print_footer(students)
 end
 
 
-#nothing happens until we call the methods
-students = input_students
-print_header
-print_names(students)
-print_footer(students)
+
+interactive_menu
