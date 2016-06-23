@@ -57,7 +57,7 @@ def input_students
             cohort = month
         puts "What's #{name}'s DOB? (DD/MM/YYYY)"
             date = STDIN.gets.chomp
-        @students << {name: name, cohort: cohort, date: date}
+        add_to_students(name, cohort, date)
             if @students.count > 1
                 puts "Now we have #{@students.count} students"
             else
@@ -117,7 +117,7 @@ def load_students(filename = "students.csv")
     file = File.open(filename, "r")
     file.readlines.each do |line|
         name, cohort, date = line.chomp.split(',')
-        @students << {name: name, cohort: cohort, date: date}
+        add_to_students(name, cohort, date)
     end
     file.close
 end
@@ -132,6 +132,10 @@ def try_load_students
         puts "Sorry, #{filename} doesn't exist"
         exit
     end
+end
+
+def add_to_students(name, cohort, date)
+     @students << {name: name, cohort: cohort, date: date}
 end
     
     
