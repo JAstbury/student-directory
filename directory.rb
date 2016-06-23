@@ -25,9 +25,11 @@ def user_choice(selection)
         when "2"
             show_students
         when "3"
-            save_students
+            puts "What file do you want to save to?"
+            save_students(STDIN.gets.chomp)
         when "4"
-            load_students
+            puts "What file do you want to load from?"
+            load_students(STDIN.gets.chomp)
         when "9"
             puts "Program exitted"
             exit
@@ -100,24 +102,29 @@ def print_footer
     end
 end
 
-def save_students
-    file = File.open("students.csv", "w")
+def save_students(filename)
+    file = File.open(filename, "w")
      @students.each do |student|
          student_data = [student[:name], student[:cohort], student[:date]]
          csv_line = student_data.join(',')
          file.puts csv_line
     end
-    puts "Saved #{@students.count} to students.csv"
+    puts "Saved #{@students.count} to #{filename}"
     file.close
 end
     
-def load_students(filename = "students.csv")
+def load_students(filename)
+    filename = "students.csv" if filename == ""
+    while !File.exists?(filename)
+    puts "Sorry, #{filename} doesn't exist. Please enter the correct file..."
+    filename = STDIN.gets.chomp
+    end
     file = File.open(filename, "r")
     file.readlines.each do |line|
         name, cohort, date = line.chomp.split(',')
         add_to_students(name, cohort, date)
     end
-    puts "Loaded #{@students.count} from students.csv"
+    puts "Loaded #{@students.count} from #{filename}"
     file.close
 end
 
@@ -128,7 +135,7 @@ def try_load_students
     elsif File.exists?(filename)
         load_students(filename)
     else
-        puts "Sorry, #{filename} doesn't exist"
+        puts "Sorry, #{filename} doesn't exist."
         exit
     end
 end
