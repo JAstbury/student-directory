@@ -103,14 +103,14 @@ def print_footer
 end
 
 def save_students(filename)
-    file = File.open(filename, "w")
+    File.open(filename, "w") do |file|
      @students.each do |student|
          student_data = [student[:name], student[:cohort], student[:date]]
          csv_line = student_data.join(',')
          file.puts csv_line
     end
+    end
     puts "Saved #{@students.count} to #{filename}"
-    file.close
 end
     
 def load_students(filename)
@@ -119,13 +119,13 @@ def load_students(filename)
     puts "Sorry, #{filename} doesn't exist. Please enter the correct file..."
     filename = STDIN.gets.chomp
     end
-    file = File.open(filename, "r")
+    File.open(filename, "r") do |file|
     file.readlines.each do |line|
         name, cohort, date = line.chomp.split(',')
         add_to_students(name, cohort, date)
     end
+    end
     puts "Loaded #{@students.count} from #{filename}"
-    file.close
 end
 
 def try_load_students
