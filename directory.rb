@@ -1,3 +1,4 @@
+require 'csv'
 @students = []
 @months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
@@ -103,13 +104,11 @@ def print_footer
 end
 
 def save_students(filename)
-    File.open(filename, "w") do |file|
+    CSV.open(filename, "w") do |file|
      @students.each do |student|
-         student_data = [student[:name], student[:cohort], student[:date]]
-         csv_line = student_data.join(',')
-         file.puts csv_line
+         file << [student[:name], student[:cohort], student[:date]]
     end
-    end
+end
     puts "Saved #{@students.count} to #{filename}"
 end
     
@@ -119,11 +118,9 @@ def load_students(filename)
     puts "Sorry, #{filename} doesn't exist. Please enter the correct file..."
     filename = STDIN.gets.chomp
     end
-    File.open(filename, "r") do |file|
-    file.readlines.each do |line|
-        name, cohort, date = line.chomp.split(',')
+    CSV.foreach(filename) do |row|
+        name, cohort, date = row
         add_to_students(name, cohort, date)
-    end
     end
     puts "Loaded #{@students.count} from #{filename}"
 end
