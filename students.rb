@@ -1,0 +1,1 @@
+puts File.open(__FILE__) {|f| f.read}
